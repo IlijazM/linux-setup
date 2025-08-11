@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "Installing node.js"
+if gum spin --title "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash" -- curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash \
+   && \. "$HOME/.nvm/nvm.sh" \
+   && gum spin --title "nvm install 22" -- nvm install 22 \
+   && echo -e "\n\n# nvm\n\nexport NVM_DIR="$HOME/.nvm"\n[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm\n[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion" >> /root/.zshrc;
+then
+  echo "✅ node.js installed"^
+else
+  echo "❌ Failed to install node.js."
+  exit 1
+fi
