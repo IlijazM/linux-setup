@@ -23,7 +23,7 @@ fi
 echo "Installing gum..."
 if wget https://github.com/charmbracelet/gum/releases/download/v0.16.2/gum_0.16.2_Linux_x86_64.tar.gz \
    && tar -xvf gum_0.16.2_Linux_x86_64.tar.gz \
-   && export PATH="gum_0.16.2_Linux_x86_64:$PATH";
+   && mv gum_0.16.2_Linux_x86_64/gum /usr/local/bin
 then
   echo "✅ Gum installed."
 else
@@ -113,11 +113,7 @@ else
 fi
 #endregion
 
-if [[ ! -d /usr/local/etc/sh ]]; then
-  mkdir /usr/local/etc/sh
-fi
-
+mkdir /usr/local/etc/sh
 mv dotfiles/.bashrc /root/.bashrc
 mv dotfiles/.bashrc /home/ich/.bashrc
-
 sh ./install-apps.sh

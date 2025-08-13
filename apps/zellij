@@ -1,3 +1,20 @@
 !#/bin/bash
 
-echo "zellij is not implemented yet."
+echo "Installing zellij..."
+if cd /tmp \
+   && gum spin --title "wget https://github.com/zellij-org/zellij/releases/download/v0.43.1/zellij-x86_64-unknown-linux-musl.tar.gz" -- wget https://github.com/zellij-org/zellij/releases/download/v0.43.1/zellij-x86_64-unknown-linux-musl.tar.gz \
+   && tar -xvf zellij*.tar.gz \
+   && chmod +x zellij \
+   && mv zellij /usr/local/bin;
+then
+  echo "✅ zellij installed."
+else
+  echo "❌ Failed to install zellij."
+  exit 1
+fi
+
+if gum confirm "Do you want to add an command 'Z' that start zellij with the session 'default'?"; then
+  echo -e "#\!/bin/bash\n\nzellij a default || zellij -s default" > /usr/local/bin/Z
+  chmod +x /usr/local/bin/Z
+  echo "✅ Command Z added."
+fi;
