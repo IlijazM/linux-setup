@@ -17,15 +17,13 @@ else
 fi
 
 if gum confirm "Do you want to add some docker aliases?"; then
-  echo "" > /root/bin/docker.zsh
-  echo -e 'alias l="ls -l"\n' >> /root/bin/docker.zsh
-  echo -e 'alias ll="ls -lah"\n' >> /root/bin/docker.zsh
-  echo -e 'alias d="sudo docke\nr"' >> /root/bin/docker.zsh
-  echo -e 'alias c="d compos\ne"' >> /root/bin/docker.zsh
-  echo -e 'alias cu="c up --build -d"\n' >> /root/bin/docker.zsh
-  echo -e 'alias cr="c down && c\nu"' >> /root/bin/docker.zsh
-  echo -e 'alias cl="c logs -f"\n' >> /root/bin/docker.zsh
-  echo -e 'alias crl="cr && c\nl"' >> /root/bin/docker.zsh
+  echo "" > /usr/local/etc/zsh/90_aliases_docker.zsh
+  echo -e 'alias d="sudo docke\nr"' >> /usr/local/etc/zsh/90_aliases_docker.zsh
+  echo -e 'alias c="d compos\ne"' >> /usr/local/etc/zsh/90_aliases_docker.zsh
+  echo -e 'alias cu="c up --build -d"\n' >> /usr/local/etc/zsh/90_aliases_docker.zsh
+  echo -e 'alias cr="c down && c\nu"' >> /usr/local/etc/zsh/90_aliases_docker.zsh
+  echo -e 'alias cl="c logs -f"\n' >> /usr/local/etc/zsh/90_aliases_docker.zsh
+  echo -e 'alias crl="cr && c\nl"' >> /usr/local/etc/zsh/90_aliases_docker.zsh
 
   echo "✅ Aliases added."
 fi;

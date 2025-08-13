@@ -68,12 +68,13 @@ source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Add /root/bin
-if [[ -d /root/bin ]]; then
-  export PATH="/root/bin:$PATH"
+if [[ -d ~/bin ]]; then
+  export PATH="~/bin:$PATH"
 fi
 
-# Iterate over all /root/bin/*.zsh files and source them
-for file in /root/bin/*.zsh; do
+# Iterate over all /usr/local/etc/zsh/*.zsh files and source them
+if [[ -d /usr/local/etc/zsh ]]; then
+  for file in /usr/local/etc/zsh/*.zsh; do
   if [[ -f $file ]]; then
     source "$file"
   fi

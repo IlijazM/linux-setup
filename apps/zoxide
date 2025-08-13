@@ -9,7 +9,7 @@ else
 fi
 
 if gum confirm "Do you want to add an alias that replaces 'cd' with 'zoxide'?"; then
-  echo "alias cd='z'" >> /root/bin/z.sh
-  chmod +x /root/bin/z.zsh
+  echo "alias cd='z'" >> /usr/local/etc/zsh/90_aliases_zoxide.zsh
+  chmod +x /usr/local/etc/zsh/90_aliases_zoxide.zsh
   echo "✅ Alias added."
 fi;
