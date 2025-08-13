@@ -28,12 +28,16 @@ else
   exit 1
 fi
 
-if gum confirm "Do you want to add some common aliases?"; then
+if [ $YES_TO_ALL = true ] || gum confirm "Do you want to add some common aliases?"; then
   echo 'alias l="ls -l"' > /usr/local/etc/sh/90_aliases_common.sh
   echo 'alias ll="ls -lah"' >> /usr/local/etc/sh/90_aliases_common.sh
-  echo 'alias source-zsh="source ~/.zshrc" >> /usr/local/etc/sh/90_aliases_common.sh
+  echo 'alias source-zsh="source ~/.zshrc"' >> /usr/local/etc/sh/90_aliases_common.sh
   echo 'alias nano-zsh="nano ~/.zshrc && source-zsh"' >> /usr/local/etc/sh/90_aliases_common.sh
   chmod +x /usr/local/etc/sh/90_aliases_common.sh
 
   echo "✅ Aliases added."
 fi;
+
+echo "Switching to ssh..."
+chsh -s $(which zsh)
+sudo -u ich chsh -s $(which zsh)

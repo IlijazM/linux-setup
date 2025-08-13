@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo "Installing nginx..."
+if gum spinner --title "apt update" -- apt update \
+   && gum spinner --title "apt install certbot nginx -y" -- apt install certbot nginx -y;
+then
+  echo "✅ nginx installed."
+else
+  echo "❌ Failed to install nginx."
+  exit 1
+fi

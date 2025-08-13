@@ -5,18 +5,21 @@ echo "Installing UFW..."
 if gum spin --title "apt install ufw -y" -- apt install ufw -y; then
   echo "✅ UFW installed."
 else
-  echo "❌ Failed to install ufw."
+  echo "❌ Failed to install UFW."
   exit 1
 fi
 
 echo "Setting up UFW..."
 
-if gum confirm "Would you like to deny all incoming traffic?"; then
+if [ $YES_TO_ALL = true ] || gum confirm "Would you like to deny all incoming traffic?"; then
     ufw default deny incoming
     ufw default allow outgoing
 fi;
 
-gum input \
+( \
+  [ $YES_TO_ALL = true ] && echo "4242/tcp, 443/tcp, 80/tcp" \
+  || gum input \
     --header "Please write a comma separated list of port you want to allow" \
     --value="4242/tcp, 443/tcp, 80/tcp" \
-    | xargs -I {} sh -c 'for port in $(echo "{}" | tr "," "\n"); do ufw allow $port; done'
+) \
+| xargs -I {} sh -c 'for port in $(echo "{}" | tr "," "\n"); do ufw allow $port; done'

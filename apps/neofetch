@@ -14,8 +14,8 @@ else
   exit 1
 fi
 
-if gum confirm "Do you want to execute neofetch on startup as a non root user?";
+if [ $YES_TO_ALL = true ] || gum confirm "Do you want to execute neofetch on startup as a non root user?";
 then
-  echo "if [ "$EUID" -eq 0 ]; then :; else neofetch; fi" > /usr/local/etc/sh/00_startup_01_neofetch.sh
+  echo "if [ \"\$EUID\" -eq 0 ]; then :; else neofetch; fi" > /usr/local/etc/sh/00_startup_01_neofetch.sh
   chmod +x /usr/local/etc/sh/00_startup_01_neofetch.sh
 fi

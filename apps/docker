@@ -16,7 +16,7 @@ else
   exit 1
 fi
 
-if gum confirm "Do you want to add some docker aliases?"; then
+if [ $YES_TO_ALL = true ] || gum confirm "Do you want to add some docker aliases?"; then
   echo 'alias d="docker"' > /usr/local/etc/sh/90_aliases_docker.sh
   echo 'alias c="d compose"' >> /usr/local/etc/sh/90_aliases_docker.sh
   echo 'alias cu="c up --build -d"' >> /usr/local/etc/sh/90_aliases_docker.sh

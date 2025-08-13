@@ -8,7 +8,7 @@ else
   exit 1
 fi
 
-if gum confirm "Do you want to add an alias that replaces 'cd' with 'zoxide'?"; then
+if [ $YES_TO_ALL = true ] || gum confirm "Do you want to add an alias that replaces 'cd' with 'zoxide'?"; then
   echo "alias cd='z'" >> /usr/local/etc/sh/90_aliases_zoxide.sh
   chmod +x /usr/local/etc/sh/90_aliases_zoxide.sh
   echo "✅ Alias added."

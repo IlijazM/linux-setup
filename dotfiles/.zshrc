@@ -67,12 +67,16 @@ source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Add /root/bin
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Sources and adds to paths
 if [[ -d ~/bin ]]; then
   export PATH="~/bin:$PATH"
 fi
 
-# Iterate over all /usr/local/etc/sh/*.sh files and source them
+export PATH="/usr/sbin:$PATH"
+
 if [[ -d /usr/local/etc/sh ]]; then
   for file in /usr/local/etc/sh/*.sh; do
     if [[ -f $file ]]; then
