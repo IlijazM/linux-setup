@@ -37,13 +37,19 @@ echo ""
 echo "Step 2. Setup users:"
 echo "--------------------"
 
-echo "Prompting root password..."
-if passwd; then
-  echo "✅ Root password changed."
+if [[ $YES_TO_ALL = true ]]; then
+  echo "Setting password..."
+  usermod -p '$1$7QHVBz$wJFZSvYe2nnexnh4hr/BX/' root
 else
-  echo "❌ Failed to change root password."
-  exit 1
+  echo "Prompting root password..."
+  if passwd; then
+    echo "✅ Root password changed."
+  else
+    echo "❌ Failed to change root password."
+    exit 1
+  fi
 fi
+
 
 echo "Adding user 'ich'..."
 if useradd -m ich && passwd -d ich && usermod -aG sudo ich && sudo -u ich whoami; then
@@ -116,4 +122,4 @@ fi
 mkdir -p /usr/local/etc/sh
 cp dotfiles/.bashrc /root/.bashrc
 cp dotfiles/.bashrc /home/ich/.bashrc
-sh ./install-apps.sh
+./install-apps.sh

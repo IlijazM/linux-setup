@@ -1,12 +1,15 @@
 #!/bin/bash
 
 echo "Installing zoxide..."
-if gum spin --title "apt install zoxide" -- apt install zoxide && eval "$(zoxide init zsh)"; then
+if gum spin --title "apt install zoxide -y" -- apt install zoxide -y; then
   echo "✅ zoxide installed."
 else
   echo "❌ Failed to install zoxide."
   exit 1
 fi
+
+echo -e "#\!/bin/bash\n\neval \"\$(zoxide init \$(sh -c 'ps -p \$\$ -o ppid=' | xargs ps -o comm= -p))\"" > /usr/local/etc/sh/20_setup_zoxide.sh
+chmod +x /usr/local/etc/sh/20_setup_zoxide.sh
 
 if [[ $YES_TO_ALL = true ]] || gum confirm "Do you want to add an alias that replaces 'cd' with 'zoxide'?"; then
   echo "alias cd='z'" >> /usr/local/etc/sh/90_aliases_zoxide.sh
