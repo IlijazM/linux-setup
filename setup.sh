@@ -113,7 +113,7 @@ else
 fi
 #endregion
 
-if [[ -d /usr/local/etc/sh ]]; then
+if [[ ! -d /usr/local/etc/sh ]]; then
   mkdir /usr/local/etc/sh
 fi
 

@@ -11,15 +11,14 @@ else
 fi
 
 echo "Init nvm..."
-echo -e "export NVM_DIR=\"\$HOME/.nvm\"" > /usr/local/etc/sh/nvm.sh
-echo -e "[ -s \"\$NVM_DIR/nvm.sh\" ] && \\. \"\$NVM_DIR/nvm.sh\"" >> /usr/local/etc/sh/nvm.sh
-echo -e "[ -s \"\$NVM_DIR/bash_completion\" ] && \\. \"\$NVM_DIR/bash_completion\"" >> /usr/local/etc/sh/nvm.sh
-echo -e "export PATH=$NVM_DIR:$PATH"
-source /usr/local/etc/sh/nvm.sh
+echo "export NVM_DIR=\"\$HOME/.nvm\"" > /usr/local/etc/sh/80_nvm.sh
+echo "[ -s \"\$NVM_DIR/nvm.sh\" ] && \\. \"\$NVM_DIR/nvm.sh\"" >> /usr/local/etc/sh/80_nvm.sh
+echo "[ -s \"\$NVM_DIR/bash_completion\" ] && \\. \"\$NVM_DIR/bash_completion\"" >> /usr/local/etc/sh/80_nvm.sh
+source /usr/local/etc/sh/80_nvm.sh
 
 echo "Installing node.js..."
 if gum choose --header="Choose node version to install" --selected="22" "18" "20" "22" "24" \
-   | xargs -I{} bash -c 'gum spin --title "nvm install {}" -- bash -c "source /usr/local/etc/sh/nvm.sh && nvm install {}"';
+   | xargs -I{} bash -c 'gum spin --title "nvm install {}" -- bash -c "source /usr/local/etc/sh/80_nvm.sh && nvm install {}"';
 then
   echo "✅ node.js installed"^
 else

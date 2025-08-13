@@ -17,13 +17,12 @@ else
 fi
 
 if gum confirm "Do you want to add some docker aliases?"; then
-  echo "" > /usr/local/etc/sh/90_aliases_docker.sh
-  echo -e 'alias d="docke\nr"' >> /usr/local/etc/sh/90_aliases_docker.sh
-  echo -e 'alias c="d compos\ne"' >> /usr/local/etc/sh/90_aliases_docker.sh
-  echo -e 'alias cu="c up --build -d"\n' >> /usr/local/etc/sh/90_aliases_docker.sh
-  echo -e 'alias cr="c down && c\nu"' >> /usr/local/etc/sh/90_aliases_docker.sh
-  echo -e 'alias cl="c logs -f"\n' >> /usr/local/etc/sh/90_aliases_docker.sh
-  echo -e 'alias crl="cr && c\nl"' >> /usr/local/etc/sh/90_aliases_docker.sh
+  echo 'alias d="docker"' > /usr/local/etc/sh/90_aliases_docker.sh
+  echo 'alias c="d compose"' >> /usr/local/etc/sh/90_aliases_docker.sh
+  echo 'alias cu="c up --build -d"' >> /usr/local/etc/sh/90_aliases_docker.sh
+  echo 'alias cr="c down && cu"' >> /usr/local/etc/sh/90_aliases_docker.sh
+  echo 'alias cl="c logs -f"' >> /usr/local/etc/sh/90_aliases_docker.sh
+  echo 'alias crl="cr && cl"' >> /usr/local/etc/sh/90_aliases_docker.sh
 
   echo "✅ Aliases added."
 fi;
