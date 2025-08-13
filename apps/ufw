@@ -11,13 +11,13 @@ fi
 
 echo "Setting up UFW..."
 
-if [ $YES_TO_ALL = true ] || gum confirm "Would you like to deny all incoming traffic?"; then
+if [[ $YES_TO_ALL = true ]] || gum confirm "Would you like to deny all incoming traffic?"; then
     ufw default deny incoming
     ufw default allow outgoing
 fi;
 
 ( \
-  [ $YES_TO_ALL = true ] && echo "4242/tcp, 443/tcp, 80/tcp" \
+  [[ $YES_TO_ALL = true ]] && echo "4242/tcp, 443/tcp, 80/tcp" \
   || gum input \
     --header "Please write a comma separated list of port you want to allow" \
     --value="4242/tcp, 443/tcp, 80/tcp" \

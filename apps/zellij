@@ -13,7 +13,7 @@ else
   exit 1
 fi
 
-if [ $YES_TO_ALL = true ] || gum confirm "Do you want to add an command 'Z' that start zellij with the session 'default'?"; then
+if [[ $YES_TO_ALL = true ]] || gum confirm "Do you want to add an command 'Z' that start zellij with the session 'default'?"; then
   echo -e "#\!/bin/bash\n\nzellij a default || zellij -s default" > /usr/local/bin/Z
   chmod +x /usr/local/bin/Z
   echo "✅ Command Z added."

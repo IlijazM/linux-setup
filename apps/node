@@ -18,7 +18,7 @@ chmod +x /usr/local/etc/sh/80_nvm.sh
 source /usr/local/etc/sh/80_nvm.sh
 
 echo "Installing node.js..."
-if ([ $YES_TO_ALL = true ] && echo "22" || gum choose --header="Choose node version to install" --selected="22" "18" "20" "22" "24") \
+if ([[ $YES_TO_ALL = true ]] && echo "22" || gum choose --header="Choose node version to install" --selected="22" "18" "20" "22" "24") \
    | xargs -I{} bash -c 'gum spin --title "nvm install {}" -- bash -c "source /usr/local/etc/sh/80_nvm.sh && nvm install {}"';
 then
   echo "✅ node.js installed"^

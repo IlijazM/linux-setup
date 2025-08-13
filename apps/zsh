@@ -15,12 +15,21 @@ else
 fi
 
 echo "Setting up ZSH..."
-if cp dotfiles/.p10k.zsh dotfiles/.zshrc dotfiles/.zprofile ~/ \
-   && mkdir -p ~/.zsh \
-   && cd ~/.zsh/ \
+if mkdir -p /usr/local/etc/dotfile \
+   && cp dotfiles/.p10k.zsh dotfiles/.zshrc dotfiles/.zprofile /usr/local/etc/dotfile \
+   && mkdir -p /usr/local/etc/dotfile/.zsh \
+   && cd /usr/local/etc/dotfile/.zsh \
    && gum spin --title "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git" -- git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
    && gum spin --title "git clone https://github.com/zsh-users/zsh-autosuggestions" -- git clone https://github.com/zsh-users/zsh-autosuggestions \
-   && gum spin --title "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git" -- git clone https://github.com/zsh-users/zsh-syntax-highlighting.git;
+   && gum spin --title "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git" -- git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
+   && (rm /root/.p10k.zsh; ln /usr/local/etc/dotfile/.p10k.zsh /root/.p10k.zsh) \
+   && (rm /root/.zshrc; ln /usr/local/etc/dotfile/.zshrc /root/.zshrc) \
+   && (rm /root/.zprofile; ln /usr/local/etc/dotfile/.zprofile /root/.zprofile) \
+   && (rm /root/.zsh; ln -s /usr/local/etc/dotfile/.zsh /root/.zsh) \
+   && (rm /home/ich/.p10k.zsh; ln /usr/local/etc/dotfile/.p10k.zsh /home/ich/.p10k.zsh) \
+   && (rm /home/ich/.zshrc; ln /usr/local/etc/dotfile/.zshrc /home/ich/.zshrc) \
+   && (rm /home/ich/.zprofile; ln /usr/local/etc/dotfile/.zprofile /home/ich/.zprofile) \
+   && (rm /home/ich/.zsh; ln -s /usr/local/etc/dotfile/.zsh /home/ich/.zsh);
 then
   echo "✅ ZSH setup completed."
 else
@@ -28,7 +37,7 @@ else
   exit 1
 fi
 
-if [ $YES_TO_ALL = true ] || gum confirm "Do you want to add some common aliases?"; then
+if [[ $YES_TO_ALL = true ]] || gum confirm "Do you want to add some common aliases?"; then
   echo 'alias l="ls -l"' > /usr/local/etc/sh/90_aliases_common.sh
   echo 'alias ll="ls -lah"' >> /usr/local/etc/sh/90_aliases_common.sh
   echo 'alias source-zsh="source ~/.zshrc"' >> /usr/local/etc/sh/90_aliases_common.sh
