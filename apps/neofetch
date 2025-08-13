@@ -1,0 +1,21 @@
+#!/bin/bash
+
+echo "Installing neofetch..."
+if gum spin --title "apt update" -- apt update \
+ && gum spin --title "apt install make -y" -- apt install make -y \
+ && cd /tmp \
+ && gum spin --title "git clone https://github.com/dylanaraps/neofetch.git" -- git clone https://github.com/dylanaraps/neofetch.git \
+ && cd neofetch \
+ && gum spin --title "make install" -- make install;
+then
+  echo "✅ neofetch installed."
+else
+  echo "❌ Failed to install neofetch."
+  exit 1
+fi
+
+if gum confirm "Do you want to execute neofetch on startup as a non root user?";
+then
+  echo "if [ "$EUID" -eq 0 ]; then :; else neofetch; fi" > /usr/local/etc/sh/00_startup_01_neofetch.sh
+  chmod +x /usr/local/etc/sh/00_startup_01_neofetch.sh
+fi

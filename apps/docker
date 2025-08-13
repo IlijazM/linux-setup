@@ -23,6 +23,7 @@ if gum confirm "Do you want to add some docker aliases?"; then
   echo 'alias cr="c down && cu"' >> /usr/local/etc/sh/90_aliases_docker.sh
   echo 'alias cl="c logs -f"' >> /usr/local/etc/sh/90_aliases_docker.sh
   echo 'alias crl="cr && cl"' >> /usr/local/etc/sh/90_aliases_docker.sh
+  chmod +x /usr/local/etc/sh/90_aliases_docker.sh
 
   echo "✅ Aliases added."
 fi;

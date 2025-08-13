@@ -14,6 +14,7 @@ echo "Init nvm..."
 echo "export NVM_DIR=\"\$HOME/.nvm\"" > /usr/local/etc/sh/80_nvm.sh
 echo "[ -s \"\$NVM_DIR/nvm.sh\" ] && \\. \"\$NVM_DIR/nvm.sh\"" >> /usr/local/etc/sh/80_nvm.sh
 echo "[ -s \"\$NVM_DIR/bash_completion\" ] && \\. \"\$NVM_DIR/bash_completion\"" >> /usr/local/etc/sh/80_nvm.sh
+chmod +x /usr/local/etc/sh/80_nvm.sh
 source /usr/local/etc/sh/80_nvm.sh
 
 echo "Installing node.js..."
