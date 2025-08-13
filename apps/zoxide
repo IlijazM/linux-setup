@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo "Installing zoxide..."
+if gum spin --title "apt install zoxide" -- apt install zoxide; then
+  echo "✅ zoxide installed."
+else
+  echo "❌ Failed to install zoxide."
+  exit 1
+fi
+
+if gum confirm "Do you want to add an alias that replaces 'cd' with 'zoxide'?"; then
+  echo "alias cd='z'" >> /root/bin/z.sh
+  chmod +x /root/bin/z.zsh
+  echo "✅ Alias added."
+fi;

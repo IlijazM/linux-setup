@@ -1,0 +1,39 @@
+#!/bin/bash
+
+if [ -d ~/.zsh ]; then
+  gum confirm "ZSH is already installed. Do you want to reinstall it?" || exit 0
+  echo "Removing existing ZSH configuration..."
+  rm -rf ~/.zsh ~/.p10k.zsh ~/.zshrc ~/.zprofile
+fi;
+
+echo "Installing ZSH..."
+if gum spin --title "apt install zsh -y" -- apt install zsh -y; then
+  echo "✅ ZSH installed."
+else
+  echo "❌ Failed to install ZSH."
+  exit 1
+fi
+
+
+echo "Setting up ZSH..."
+if cp dotfiles/.p10k.zsh dotfiles/.zshrc dotfiles/.zprofile ~/ \
+   && mkdir -p ~/.zsh \
+   && cd ~/.zsh/ \
+   && gum spin --title "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git" -- git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+   && gum spin --title "git clone https://github.com/zsh-users/zsh-autosuggestions" -- git clone https://github.com/zsh-users/zsh-autosuggestions \
+   && gum spin --title "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git" -- git clone https://github.com/zsh-users/zsh-syntax-highlighting.git;
+then
+  echo "✅ ZSH setup completed."
+else
+  echo "❌ Failed to set up ZSH."
+  exit 1
+fi
+
+# echo "Define aliases for root user..."
+# if echo -e '\n\n# Aliases\n\nalias l="ls -l"\nalias ll="ls -lah"\nalias d="sudo docker"\nalias c="d compose"\nalias cu="c up --build -d"\nalias cr="c down && cu"\nalias cl="c logs -f"\nalias crl="cr && cl"\n\nalias nC="nano /root/apps/caddy/Caddyfile"\n\nalias nginx="d exec -it nginx-nginx-1 nginx"\n\nalias cval="docker exec caddy caddy validate --config /etc/caddy/Caddyfile"\nalias crel="docker exec caddy caddy reload --config /etc/caddy/Caddyfile"\nalias cfmt="docker exec caddy caddy fmt --overwrite /etc/caddy/Caddyfile"\nalias caddy="nC && cval && cfmt && crel"\n\n' >> /root/.zshrc;
+# then
+#   echo "✅ Aliases defined for root user."
+# else
+#   echo "❌ Failed to define aliases for root user."
+#   exit 1
+# fi

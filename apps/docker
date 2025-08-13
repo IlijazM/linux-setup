@@ -1,7 +1,8 @@
 #!/bin/bash
 
 echo "Installing docker..."
-if gum spin --title "apt-get install ca-certificates -y" -- apt-get install ca-certificates -y \
+if gum spin --title "for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done" -- for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done \
+   && gum spin --title "apt-get install ca-certificates -y" -- apt-get install ca-certificates -y \
    && gum spin --title "install -m 0755 -d /etc/apt/keyrings" -- install -m 0755 -d /etc/apt/keyrings \
    && gum spin --title "curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc" -- curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc \
    && chmod a+r /etc/apt/keyrings/docker.asc \
@@ -14,3 +15,17 @@ else
   echo "❌ Failed to install docker."
   exit 1
 fi
+
+if gum confirm "Do you want to add some docker aliases?"; then
+  echo "" > /root/bin/docker.zsh
+  echo -e 'alias l="ls -l"\n' >> /root/bin/docker.zsh
+  echo -e 'alias ll="ls -lah"\n' >> /root/bin/docker.zsh
+  echo -e 'alias d="sudo docke\nr"' >> /root/bin/docker.zsh
+  echo -e 'alias c="d compos\ne"' >> /root/bin/docker.zsh
+  echo -e 'alias cu="c up --build -d"\n' >> /root/bin/docker.zsh
+  echo -e 'alias cr="c down && c\nu"' >> /root/bin/docker.zsh
+  echo -e 'alias cl="c logs -f"\n' >> /root/bin/docker.zsh
+  echo -e 'alias crl="cr && c\nl"' >> /root/bin/docker.zsh
+
+  echo "✅ Aliases added."
+fi;
