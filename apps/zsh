@@ -6,10 +6,6 @@ if [[ -d ~/.zsh ]]; then
   rm -rf ~/.zsh ~/.p10k.zsh ~/.zshrc ~/.zprofile
 fi
 
-if [[ -d /usr/local/etc/zsh ]]; then
-  mkdir /usr/local/etc/zsh
-fi
-
 echo "Installing ZSH..."
 if gum spin --title "apt install zsh -y" -- apt install zsh -y; then
   echo "✅ ZSH installed."

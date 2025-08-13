@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Installing docker..."
-if gum spin --title "for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done" -- for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done \
+if gum spin --title "for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do apt-get remove $pkg; done" -- sh -c "for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do apt-get remove $pkg; done" \
    && gum spin --title "apt-get install ca-certificates -y" -- apt-get install ca-certificates -y \
    && gum spin --title "install -m 0755 -d /etc/apt/keyrings" -- install -m 0755 -d /etc/apt/keyrings \
    && gum spin --title "curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc" -- curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc \
@@ -17,13 +17,13 @@ else
 fi
 
 if gum confirm "Do you want to add some docker aliases?"; then
-  echo "" > /usr/local/etc/zsh/90_aliases_docker.zsh
-  echo -e 'alias d="sudo docke\nr"' >> /usr/local/etc/zsh/90_aliases_docker.zsh
-  echo -e 'alias c="d compos\ne"' >> /usr/local/etc/zsh/90_aliases_docker.zsh
-  echo -e 'alias cu="c up --build -d"\n' >> /usr/local/etc/zsh/90_aliases_docker.zsh
-  echo -e 'alias cr="c down && c\nu"' >> /usr/local/etc/zsh/90_aliases_docker.zsh
-  echo -e 'alias cl="c logs -f"\n' >> /usr/local/etc/zsh/90_aliases_docker.zsh
-  echo -e 'alias crl="cr && c\nl"' >> /usr/local/etc/zsh/90_aliases_docker.zsh
+  echo "" > /usr/local/etc/sh/90_aliases_docker.sh
+  echo -e 'alias d="docke\nr"' >> /usr/local/etc/sh/90_aliases_docker.sh
+  echo -e 'alias c="d compos\ne"' >> /usr/local/etc/sh/90_aliases_docker.sh
+  echo -e 'alias cu="c up --build -d"\n' >> /usr/local/etc/sh/90_aliases_docker.sh
+  echo -e 'alias cr="c down && c\nu"' >> /usr/local/etc/sh/90_aliases_docker.sh
+  echo -e 'alias cl="c logs -f"\n' >> /usr/local/etc/sh/90_aliases_docker.sh
+  echo -e 'alias crl="cr && c\nl"' >> /usr/local/etc/sh/90_aliases_docker.sh
 
   echo "✅ Aliases added."
 fi;

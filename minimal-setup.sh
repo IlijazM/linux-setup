@@ -1,1 +1,1 @@
-apt update&&apt install git -y&&cd /tmp/&&git clone https://github.com/IlijazM/linux-setup.git&&sh linux-setup/setup.sh
+apt update&&apt install git -y&&cd /tmp/&&git clone https://github.com/IlijazM/linux-setup.git&&cd linux-setup&& sh setup.sh

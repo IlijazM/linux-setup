@@ -21,10 +21,9 @@ else
 fi
 
 echo "Installing gum..."
-if cd /tmp \
-   && wget https://github.com/charmbracelet/gum/releases/download/v0.16.2/gum_0.16.2_Linux_x86_64.tar.gz \
+if wget https://github.com/charmbracelet/gum/releases/download/v0.16.2/gum_0.16.2_Linux_x86_64.tar.gz \
    && tar -xvf gum_0.16.2_Linux_x86_64.tar.gz \
-   && alias gum="/tmp/gum_0.16.2_Linux_x86_64/gum";
+   && export PATH="gum_0.16.2_Linux_x86_64:$PATH";
 then
   echo "✅ Gum installed."
 else
@@ -113,5 +112,12 @@ else
   exit 1
 fi
 #endregion
+
+if [[ -d /usr/local/etc/sh ]]; then
+  mkdir /usr/local/etc/sh
+fi
+
+mv dotfiles/.bashrc /root/.bashrc
+mv dotfiles/.bashrc /home/ich/.bashrc
 
 sh ./install-apps.sh
