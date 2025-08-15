@@ -1,0 +1,29 @@
+#!/bin/bash
+set -e
+
+IMAGE_NAME="ansible_test_image"
+CONTAINER_NAME="ansible_test_container"
+
+# Build Docker image (caches steps)
+echo "📦 Building Docker image..."
+sudo podman build -t $IMAGE_NAME .
+
+# Run container in background
+echo "🚀 Starting container..."
+sudo podman run -d --name $CONTAINER_NAME --rm -it $IMAGE_NAME
+
+# Ensure container stops on exit
+trap "echo '🛑 Stopping container...'; sudo podman stop $CONTAINER_NAME >/dev/null" EXIT
+
+# Run Ansible playbook inside container
+echo "⚙️ Running Ansible playbook..."
+sudo podman exec $CONTAINER_NAME ansible-playbook -i /inventory.ini /server_setup_playbook.yml
+
+# Checks
+echo "🔍 Checking if user 'ich' exists..."
+sudo podman exec $CONTAINER_NAME id ich
+
+echo "🔍 Checking SSH port change..."
+sudo podman exec $CONTAINER_NAME grep "Port 4242" /etc/ssh/sshd_config
+
+echo "✅ Done."

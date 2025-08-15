@@ -1,0 +1,12 @@
+FROM debian:bookworm
+
+RUN apt-get update && apt-get install -y ansible ssh sudo python3 python3-apt
+
+# Create sshd for testing
+RUN apt-get install -y openssh-server && mkdir /var/run/sshd
+RUN echo 'root:root' | chpasswd
+
+# Allow passwordless sudo for testing
+RUN apt-get install -y sudo && echo "ALL ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+CMD ["/usr/sbin/sshd", "-D"]

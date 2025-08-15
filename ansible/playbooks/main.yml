@@ -1,0 +1,45 @@
+---
+- name: Base server setup
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Update apt install
+      apt:
+        update_cache: yes
+
+    - name: Install useful packages
+      apt:
+        name:
+          - curl
+          - git
+        update_cache: yes
+
+    # - name: Create non-root user "ich"
+    #   user:
+    #     name: ich
+    #     password: ""
+    #     shell: /bin/bash
+    #     create_home: yes
+
+    # - name: Disable root SSH login
+    #   lineinfile:
+    #     path: /etc/ssh/sshd_config
+    #     regexp: "^PermitRootLogin"
+    #     line: "PermitRootLogin no"
+
+    # - name: Change SSH port
+    #   lineinfile:
+    #     path: /etc/ssh/sshd_config
+    #     regexp: "^#?Port"
+    #     line: "Port 4242"
+
+    # - name: Restart SSH
+    #   service:
+    #     name: ssh
+    #     state: restarted
+
+  # roles:
+  #   - zsh
+  #   - docker
+  #   - nginx
