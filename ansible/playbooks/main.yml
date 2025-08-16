@@ -3,57 +3,9 @@
   hosts: all
   become: yes
 
-  tasks:
-    - name: Update apt install
-      apt:
-        update_cache: yes
+  vars:
+    dotfiles_dest: /usr/local/etc/dotfile
 
-    - name: Install useful packages
-      apt:
-        name:
-          - curl
-          - git
-        update_cache: yes
-
-    - name: Set password for root user
-      ansible.builtin.user:
-        name: root
-        password: "$1$7QHVBz$wJFZSvYe2nnexnh4hr/BX/"
-      become: yes
-
-    - name: Create non-root user "ich"
-      user:
-        name: ich
-        password: ""
-        groups: sudo
-        shell: /bin/bash
-        create_home: yes
-
-    - name: Ensure /home/ich/.ssh directory exists with correct permissions
-      file:
-        path: /home/ich/.ssh
-        state: directory
-        owner: ich
-        group: ich
-        mode: "0700"
-
-    - name: Copy authorized_keys from root to ich
-      copy:
-        src: /root/.ssh/authorized_keys
-        dest: /home/ich/.ssh/authorized_keys
-        owner: ich
-        group: ich
-        mode: "0600"
-        remote_src: yes
-
-    - name: Disable root SSH login
-      lineinfile:
-        path: /etc/ssh/sshd_config
-        regexp: "^PermitRootLogin"
-        line: "PermitRootLogin no"
-
-    - name: Change SSH port
-      lineinfile:
-        path: /etc/ssh/sshd_config
-        regexp: "^#?Port"
-        line: "Port 4242"
+  roles:
+    - setup
+    - zsh
