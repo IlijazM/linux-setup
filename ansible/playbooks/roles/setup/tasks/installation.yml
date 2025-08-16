@@ -1,0 +1,11 @@
+---
+- name: Update apt install
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install useful packages
+  ansible.builtin.apt:
+    name:
+      - curl
+      - git
+    update_cache: yes

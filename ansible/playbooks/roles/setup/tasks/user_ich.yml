@@ -1,0 +1,15 @@
+- name: Create non-root user "ich"
+  ansible.builtin.user:
+    name: ich
+    password: ""
+    groups: sudo
+    shell: /bin/bash
+    create_home: yes
+
+- name: Ensure /home/ich/.ssh directory exists with correct permissions
+  ansible.builtin.file:
+    path: /home/ich/.ssh
+    state: directory
+    owner: ich
+    group: ich
+    mode: "0700"

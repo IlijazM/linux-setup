@@ -1,0 +1,21 @@
+---
+- name: Copy authorized_keys from root to ich
+  ansible.builtin.copy:
+    src: /root/.ssh/authorized_keys
+    dest: /home/ich/.ssh/authorized_keys
+    owner: ich
+    group: ich
+    mode: "0600"
+    remote_src: yes
+
+- name: Disable root SSH login
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+
+- name: Change SSH port
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^#?Port"
+    line: "Port 4242"

@@ -1,0 +1,75 @@
+---
+- name: Install Zsh
+  ansible.builtin.apt:
+    name: zsh
+    state: present
+
+- name: Set zsh as default shell for root
+  ansible.builtin.user:
+    name: root
+    shell: /usr/bin/zsh
+
+- name: Set zsh as default shell for ich
+  ansible.builtin.user:
+    name: ich
+    shell: /usr/bin/zsh
+
+- name: Copy core dotfiles
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ dotfiles_dest }}/{{ item }}"
+    mode: "0644"
+  loop:
+    - ".p10k.zsh"
+    - ".zshrc"
+    - ".zprofile"
+# - name: Ensure .zsh plugin directory exists
+#   ansible.builtin.file:
+#     path: "{{ dotfiles_dest }}/.zsh"
+#     state: directory
+#     mode: '0755'
+
+# - name: Clone powerlevel10k
+#   ansible.builtin.git:
+#     repo: "https://github.com/romkatv/powerlevel10k.git"
+#     dest: "{{ dotfiles_dest }}/.zsh/powerlevel10k"
+#     depth: 1
+#     update: no
+
+# - name: Clone zsh-autosuggestions
+#   ansible.builtin.git:
+#     repo: "https://github.com/zsh-users/zsh-autosuggestions"
+#     dest: "{{ dotfiles_dest }}/.zsh/zsh-autosuggestions"
+#     update: no
+
+# - name: Clone zsh-syntax-highlighting
+#   ansible.builtin.git:
+#     repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+#     dest: "{{ dotfiles_dest }}/.zsh/zsh-syntax-highlighting"
+#     update: no
+
+# # --- Root symlinks ---
+# - name: Link dotfiles for root
+#   ansible.builtin.file:
+#     src: "{{ dotfiles_dest }}/{{ item }}"
+#     dest: "/root/{{ item }}"
+#     state: link
+#     force: true
+#   loop:
+#     - .p10k.zsh
+#     - .zshrc
+#     - .zprofile
+#     - .zsh
+
+# # --- Ich symlinks ---
+# - name: Link dotfiles for ich
+#   ansible.builtin.file:
+#     src: "{{ dotfiles_dest }}/{{ item }}"
+#     dest: "/home/ich/{{ item }}"
+#     state: link
+#     force: true
+#   loop:
+#     - .p10k.zsh
+#     - .zshrc
+#     - .zprofile
+#     - .zsh

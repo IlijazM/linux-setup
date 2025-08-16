@@ -1,0 +1,14 @@
+- name: Installation
+  include_tasks: installation.yml
+
+- name: Create user 'root'
+  include_tasks: user_root.yml
+
+- name: Create user 'ich'
+  include_tasks: user_ich.yml
+
+- name: Configure ssh
+  include_tasks: configure_ssh.yml
+
+- name: Ensure directories
+  include_tasks: ensure_directories.yml
