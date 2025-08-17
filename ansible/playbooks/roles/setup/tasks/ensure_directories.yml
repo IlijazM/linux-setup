@@ -1,7 +1,7 @@
 ---
-- name: Ensure /usr/local/etc/dotfile directory exists with correct permissions
+- name: Ensure /usr/local/etc/dotfiles directory exists with correct permissions
   ansible.builtin.file:
-    path: /usr/local/etc/dotfile
+    path: /usr/local/etc/dotfiles
     state: directory
     owner: root
     group: root

@@ -30,7 +30,5 @@ ansible-playbook \
   -c ssh \
   ansible/playbooks/main.yml
 
-sleep 10000000000
-
-# Run verification
-# python3 tests/test_basic.py
+# Tests
+pytest tests

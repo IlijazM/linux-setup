@@ -4,8 +4,9 @@
   become: yes
 
   vars:
-    dotfiles_dest: /usr/local/etc/dotfile
+    dotfiles_dest: /usr/local/etc/dotfiles
 
   roles:
     - setup
     - zsh
+    - docker

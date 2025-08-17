@@ -1,0 +1,7 @@
+# If this is true the following error is returned:
+#
+# ```
+# TASK [geerlingguy.docker : Ensure Docker is started and enabled at boot.] *******************************************************************************************************************************************************************
+# fatal: [localhost]: FAILED! => {"changed": false, "msg": "/etc/init.d/docker: 62: ulimit: error setting limit (Invalid argument)\n"}
+# ```
+docker_service_manage: false

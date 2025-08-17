@@ -6,6 +6,9 @@
 - name: Install useful packages
   ansible.builtin.apt:
     name:
+      - gnupg
+      - apt-transport-https
+      - ca-certificates
       - curl
       - git
     update_cache: yes
