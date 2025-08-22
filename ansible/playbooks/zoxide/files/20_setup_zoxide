@@ -1,0 +1,4 @@
+#!/bin/bash
+
+eval "$(zoxide init $(sh -c 'ps -p $$ -o ppid=' | xargs ps -o comm= -p))"
+

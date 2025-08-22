@@ -1,0 +1,17 @@
+---
+- name: Ensure sysconf group exists
+  ansible.builtin.group:
+    name: sysconf
+    state: present
+
+- name: Ensure root is in sysconf group
+  ansible.builtin.user:
+    name: root
+    groups: sysconf
+    append: yes
+
+- name: Ensure ich is in sysconf group
+  ansible.builtin.user:
+    name: ich
+    groups: sysconf
+    append: yes

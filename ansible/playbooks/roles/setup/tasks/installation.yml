@@ -11,4 +11,5 @@
       - ca-certificates
       - curl
       - git
+      - nano
     update_cache: yes

@@ -1,8 +1,24 @@
 ---
-- name: Ensure /usr/local/etc/dotfiles directory exists with correct permissions
+- name: Ensure dotfiles directory exists with correct permissions
   ansible.builtin.file:
-    path: /usr/local/etc/dotfiles
+    path: "{{ dotfiles_dest }}"
     state: directory
     owner: root
-    group: root
+    group: sysconf
+    mode: "774"
+
+- name: Ensure shell files directory exists with correct permissions
+  ansible.builtin.file:
+    path: "{{ shell_files_dest }}"
+    state: directory
+    owner: root
+    group: sysconf
+    mode: "774"
+
+- name: Ensure bin files directory exists with correct permissions
+  ansible.builtin.file:
+    path: "{{ bin_files_dest }}"
+    state: directory
+    owner: root
+    group: sysconf
     mode: "774"

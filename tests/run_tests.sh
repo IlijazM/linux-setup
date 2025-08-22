@@ -30,5 +30,10 @@ ansible-playbook \
   -c ssh \
   ansible/playbooks/main.yml
 
+
+docker restart ansible-test
+
+read -p "Press any key to continue..." -n 1 -s
+
 # Tests
 pytest tests

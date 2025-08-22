@@ -5,8 +5,14 @@
 
   vars:
     dotfiles_dest: /usr/local/etc/dotfiles
+    shell_files_dest: /usr/local/etc/sh
+    bin_files_dest: /usr/local/bin
 
   roles:
     - setup
     - zsh
+    - node
+    - eza
     - docker
+    - nginx
+    - fastfetch

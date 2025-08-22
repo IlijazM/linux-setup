@@ -78,7 +78,7 @@ fi
 export PATH="/usr/sbin:$PATH"
 
 if [[ -d /usr/local/etc/sh ]]; then
-  for file in /usr/local/etc/sh/*.sh; do
+  for file in /usr/local/etc/sh/*; do
     if [[ -f $file ]]; then
       source "$file"
     fi

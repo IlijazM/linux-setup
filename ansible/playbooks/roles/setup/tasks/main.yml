@@ -7,6 +7,9 @@
 - name: Create user 'ich'
   include_tasks: user_ich.yml
 
+- name: Configure group 'sysconf'
+  include_tasks: group_sysconf.yml
+
 - name: Configure ssh
   include_tasks: configure_ssh.yml
 

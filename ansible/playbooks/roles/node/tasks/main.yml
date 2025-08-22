@@ -1,0 +1,24 @@
+- name: Install node for 'ich'
+  ansible.builtin.include_role:
+    name: ansible-role-nvm
+  vars:
+    nvm_dir: "/home/ich/.nvm"
+
+- name: Ensure .nvm directory ownership is ich:ich
+  ansible.builtin.file:
+    path: /home/ich/.nvm
+    owner: ich
+    group: ich
+    recurse: yes
+
+- name: Install node for 'root'
+  ansible.builtin.include_role:
+    name: ansible-role-nvm
+
+- name: Copy nvm setup script
+  ansible.builtin.copy:
+    src: "50_nvm"
+    dest: "{{ shell_files_dest }}/50_nvm"
+    mode: "777"
+    owner: root
+    group: sysconf

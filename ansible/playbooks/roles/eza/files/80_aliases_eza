@@ -1,0 +1,14 @@
+#!/bin/bash
+
+alias l="eza -T --icons --hyperlink --group-directories-first -L 1"
+alias ll="l -a"
+alias L="l --absolute"
+alias LL="ll --absolute"
+alias l2="l -L 2"
+alias ll2="ll -L 2"
+alias LL2="LL -L 2"
+alias l3="l -L 3"
+alias ll3="ll -L 3"
+alias LL3="LL -L 3"
+alias lll="eza -l --git --icons --header --time-style=\"+%Y-%m-%d %H:%M\" --created --links -a"
+alias LLL="lll --absolute"
