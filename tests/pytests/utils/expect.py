@@ -1,6 +1,6 @@
 import subprocess
 
-CONTAINER_NAME = "ansible-test"  # default container, you can make this configurable
+CONTAINER_NAME = "ansible-test"
 
 class ExpectCommand:
     def __init__(self, command: str, container: str = CONTAINER_NAME):
@@ -11,9 +11,10 @@ class ExpectCommand:
         self._run_command()
 
     def _run_command(self):
+        print("Running command: " + " ".join(["docker", "exec", self.container] + self.command.split()))
         try:
             self._result = subprocess.run(
-                ["docker", "exec", self.container] + self.command.split(),
+                ["sudo", "podman", "exec", self.container] + self.command.split(),
                 capture_output=True,
                 text=True,
                 check=True

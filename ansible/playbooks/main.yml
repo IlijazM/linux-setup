@@ -12,7 +12,7 @@
     - setup
     - zsh
     - node
-    - eza
-    - docker
-    - nginx
-    - fastfetch
+    # - eza
+    # - docker
+    # - nginx
+    # - fastfetch

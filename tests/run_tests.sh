@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+alias docker="sudo podman"
+
 CID=""
 
 cleanup() {
