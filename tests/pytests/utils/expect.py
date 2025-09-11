@@ -3,18 +3,26 @@ import subprocess
 CONTAINER_NAME = "ansible-test"
 
 class ExpectCommand:
-    def __init__(self, command: str, container: str = CONTAINER_NAME):
+    def __init__(self, command: str, container: str = CONTAINER_NAME, user: str = "root", interactive_shell: bool = False):
         self.command = command
         self.container = container
+        self.user = user
+        self.interactive_shell = interactive_shell
         self._result = None
         self._error = None
         self._run_command()
 
     def _run_command(self):
-        print("Running command: " + " ".join(["docker", "exec", self.container] + self.command.split()))
+        cmd = ["sudo", "podman", "exec", "--user", self.user, self.container]
+        if (self.interactive_shell):
+            cmd += ["zsh", "-i", "-c", f"{self.command}"]
+        else:
+            cmd += self.command.split()
+        
+        print("Running command: " + " ".join(cmd))
         try:
             self._result = subprocess.run(
-                ["sudo", "podman", "exec", self.container] + self.command.split(),
+                cmd,
                 capture_output=True,
                 text=True,
                 check=True
@@ -65,9 +73,9 @@ class ExpectCommand:
         assert self._error is not None, "Command was expected to fail but succeeded"
         return self
 
-def expect(command: str, container: str = CONTAINER_NAME) -> ExpectCommand:
+def expect(command: str, container: str = CONTAINER_NAME, user = "root", interactive_shell = False) -> ExpectCommand:
     """
     Main entry point for the utility.
     Usage: expect("grep '^Port' /etc/ssh/sshd_config").to_return("Port 4242").to_not_fail()
     """
-    return ExpectCommand(command, container)
+    return ExpectCommand(command, container, user, interactive_shell)

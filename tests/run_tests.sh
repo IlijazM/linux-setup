@@ -1,24 +1,22 @@
 #!/usr/bin/env bash
 set -e
 
-alias docker="sudo podman"
-
 CID=""
 
 cleanup() {
   echo "cleanup"
-  docker stop $CID
-  docker rm $CID
+  sudo podman stop $CID
+  sudo podman rm $CID
 }
 trap cleanup EXIT INT ERR
 
-docker stop -i ansible-test
+sudo podman stop -i ansible-test
 
 # Build test image
-docker build -t ansible-test -f Dockerfile.test tests
+sudo podman build -t ansible-test -f Dockerfile.test tests
 
 # Start container in background
-CID=$(docker run -d --rm -p 4242:4242 -p 2222:22 --name ansible-test ansible-test)
+CID=$(sudo podman run -d --rm -p 4242:4242 -p 2222:22 --name ansible-test ansible-test)
 
 # Wait for sshd
 sleep 2
@@ -32,8 +30,7 @@ ansible-playbook \
   -c ssh \
   ansible/playbooks/main.yml
 
-
-docker restart ansible-test
+sudo podman restart ansible-test
 
 read -p "Press any key to continue..." -n 1 -s
 
