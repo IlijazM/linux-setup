@@ -7,12 +7,13 @@
     dotfiles_dest: /usr/local/etc/dotfiles
     shell_files_dest: /usr/local/etc/sh
     bin_files_dest: /usr/local/bin
+    srv_root: /srv
 
   roles:
     - setup
+    - nginx
     - zsh
-    - node
+    # - node
     # - eza
-    # - docker
-    # - nginx
+    - docker
     # - fastfetch

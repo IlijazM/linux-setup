@@ -7,8 +7,8 @@
 - name: Install latest Node.js for 'root'
   ansible.builtin.shell: |
     export NVM_DIR=/root/.nvm
-    . /root/.nvm/nvm.sh
-    nvm install node"
+    . "$NVM_DIR/nvm.sh"
+    nvm install node
   args:
     executable: /usr/bin/zsh
 
@@ -28,7 +28,7 @@
 - name: Install latest Node.js for 'ich'
   become_user: ich
   ansible.builtin.shell: |
-    export NVM_DIR=/root/.nvm
+    export NVM_DIR=/home/ich/.nvm
     . "$NVM_DIR/nvm.sh"
     nvm install node
   args:

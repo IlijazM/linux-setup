@@ -16,7 +16,8 @@ sudo podman stop -i ansible-test
 sudo podman build -t ansible-test -f Dockerfile.test tests
 
 # Start container in background
-CID=$(sudo podman run -d --rm -p 4242:4242 -p 2222:22 --name ansible-test ansible-test)
+sudo podman network create ansible-test-network || true
+CID=$(sudo podman run -d --rm --network ansible-test-network -p 4242:4242 -p 2222:22 -p 8080:80 -p 4430:443 --name ansible-test ansible-test)
 
 # Wait for sshd
 sleep 2
