@@ -2,6 +2,5 @@
 - name: Set password for root user
   ansible.builtin.user:
     name: root
-    # password: "$1$7QHVBz$wJFZSvYe2nnexnh4hr/BX/"
-    password: ""
+    password: "$1$7QHVBz$wJFZSvYe2nnexnh4hr/BX/"
   become: true

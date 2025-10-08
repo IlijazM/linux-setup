@@ -1,0 +1,2 @@
+[servers]
+ilijaz.dev ansible_host=ilijaz.dev ansible_user=root

@@ -13,7 +13,7 @@
     - setup
     - nginx
     - zsh
-    # - node
-    # - eza
+    - node
+    - eza
     - docker
-    # - fastfetch
+    - fastfetch
