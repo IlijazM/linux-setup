@@ -29,7 +29,7 @@ ansible-playbook \
   -i "localhost," \
   -e "ansible_port=2222 ansible_host=127.0.0.1 ansible_user=root ansible_ssh_common_args='-o StrictHostKeyChecking=no'" \
   -c ssh \
-  ansible/playbooks/main.yml
+  ansible/playbook.yml
 
 sudo podman restart ansible-test
 
