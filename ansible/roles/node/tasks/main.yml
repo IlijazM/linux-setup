@@ -1,6 +1,6 @@
 - name: Install node for 'root'
   ansible.builtin.include_role:
-    name: ansible-role-nvm
+    name: morgangraphics.ansible-role-nvm
   vars:
     nvm_dir: "/root/.nvm"
 
@@ -14,7 +14,7 @@
 
 - name: Install node for 'ich'
   ansible.builtin.include_role:
-    name: ansible-role-nvm
+    name: morgangraphics.ansible-role-nvm
   vars:
     nvm_dir: "/home/ich/.nvm"
 
