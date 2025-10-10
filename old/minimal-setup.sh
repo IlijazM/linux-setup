@@ -1,1 +1,0 @@
-export YES_TO_ALL=true&&apt update&&apt install git -y&&cd /tmp/&&git clone https://github.com/IlijazM/linux-setup.git&&cd linux-setup&& ./setup.sh
