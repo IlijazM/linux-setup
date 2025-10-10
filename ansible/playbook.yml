@@ -15,5 +15,6 @@
     - zsh
     - node
     - eza
+    - zoxide
     - docker
     - fastfetch

@@ -33,3 +33,13 @@ def test_symlinks_for_ich():
     ls_results.to_contain(".zprofile -> /usr/local/etc/dotfiles/.zprofile")
     ls_results.to_contain(".zshrc -> /usr/local/etc/dotfiles/.zshrc")
     ls_results.to_contain(".zsh -> /usr/local/etc/dotfiles/.zsh")
+
+def test_zsh_plugins_installed():
+    # Check for plugin files in .zsh directory
+    plugins = ["powerlevel10k", "zsh-autosuggestions", "zsh-syntax-highlighting"]
+    for plugin in plugins:
+        expect(f"test -d /usr/local/etc/dotfiles/.zsh/{plugin}").to_not_fail()
+
+def test_default_shell_for_users():
+    expect("getent passwd root").to_contain("/usr/bin/zsh")
+    expect("getent passwd ich").to_contain("/usr/bin/zsh")

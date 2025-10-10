@@ -11,23 +11,46 @@ class ExpectCommand:
         self.interactive_shell = interactive_shell
         (self._result, self._error) = run(self.command, container=self.container, user=self.user, interactive_shell=self.interactive_shell)
 
-    def to_return(self, expected: str):
+    def to_return(self, expected: str, ignore_case = False, output = "stdout"):
         """
         Assert that the command output equals the expected string.
         """
-        output = self._result if self._result else ""
-        assert output == expected, f"Expected '{expected}', but got '{output}'"
+        
+        result = ""
+
+        if output == "stdout":
+            result = self._result if self._result else ""
+        elif output == "stderr":
+            result = self._error if self._error else ""
+        else:
+            raise ValueError("output must be either 'stdout' or 'stderr'")
+
+        if ignore_case: 
+            result = result.lower()
+            expected = expected.lower()
+
+        assert result == expected, f"Expected '{expected}', but got '{result}'"
+
         return self
 
-    def to_contain(self, expected: str, ignore_case = False):
+    def to_contain(self, expected: str, ignore_case = False, output = "stdout"):
         """
         Assert that the command output contains the expected string.
         """
-        output = self._result if self._result else ""
+        
+        result = ""
+
+        if output == "stdout":
+            result = self._result if self._result else ""
+        elif output == "stderr":
+            result = self._error if self._error else ""
+        else:
+            raise ValueError("output must be either 'stdout' or 'stderr'")
+        
         if ignore_case:
-            output = output.lower()
-            excepted = expected.lower()
-        assert expected in output, f"Expected output to contain '{expected}', but got '{output}'"
+            result = result.lower()
+            expected = expected.lower()
+        assert expected in result, f"Expected output to contain '{expected}', but got '{result}'"
         return self
     
     def to_not_contain(self, unexpected: str):
@@ -42,7 +65,7 @@ class ExpectCommand:
         """
         Assert that the command ran successfully (exit code 0).
         """
-        assert self._error is None, f"Command failed with error: {self._error}"
+        assert self._error is None or self._error == "", f"Command failed with error: {self._error}"
         return self
 
     def to_fail(self):
@@ -63,7 +86,7 @@ def run(command: str, container=CONTAINER_NAME, user="root", interactive_shell=F
     cmd = []
 
     if container is not None:
-        cmd += ["sudo", "podman", "exec", "--user", user, container]
+        cmd += ["podman", "exec", "--user", user, container]
 
     if container is not None and interactive_shell:
         cmd += ["zsh", "-i", "-c", command]
@@ -81,6 +104,6 @@ def run(command: str, container=CONTAINER_NAME, user="root", interactive_shell=F
             text=True,
             check=True
         )
-        return (result.stdout.strip(), None)
+        return (result.stdout.strip(), result.stderr.strip())
     except subprocess.CalledProcessError as e:
         return (e.stderr, e.stderr)

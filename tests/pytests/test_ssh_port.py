@@ -20,3 +20,20 @@ def test_curl_installed():
 
 def test_dotfiles_directory_exists():
     expect(r"stat -c '%F' /usr/local/etc/dotfiles").to_contain("directory")
+
+def test_user_root_exists():
+    expect("id root").to_contain("uid=0(root)")
+
+def test_user_ich_exists():
+    expect("id ich").to_contain("uid=")
+
+def test_group_sysconf_exists():
+    expect("getent group sysconf").to_contain("sysconf")
+
+def test_ssh_key_permissions():
+    expect("stat -c '%a' /root/.ssh/authorized_keys").to_contain("600")
+    expect("stat -c '%a' /home/ich/.ssh/authorized_keys").to_contain("600")
+
+def test_home_directories():
+    expect("stat -c '%F' /home/ich").to_contain("directory")
+    expect("stat -c '%F' /root").to_contain("directory")
