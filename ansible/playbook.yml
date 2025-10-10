@@ -11,10 +11,14 @@
 
   roles:
     - setup
-    - nginx
     - zsh
+    - rust
+    - nginx
     - node
     - eza
     - zoxide
+    - fzf
+    - zellij
+    - nvchad
     - docker
     - fastfetch

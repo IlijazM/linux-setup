@@ -1,11 +1,11 @@
 from utils.expect import expect, run
 
 def test_hello_world_service():
-    run("mkdir -p /srv/services/hello-world")
-    run("echo -e 'server {\\n    listen 80;\\n    server_name hello-world.ilijaz.example;\\n    location / {\\n        default_type text/plain;\\n        return 200 \"Hello World\";\\n    }\\n}' > /srv/services/hello-world/conf.nginx")
+    run("mkdir -p /srv/services/hello-world-nginx")
+    run("echo -e 'server {\\n    listen 80;\\n    server_name hello-world-nginx.ilijaz.example;\\n    location / {\\n        default_type text/plain;\\n        return 200 \"Hello World from Nginx\";\\n    }\\n}' > /srv/services/hello-world-nginx/conf.nginx")
     run("nginx")
     expect("nginx -s reload").to_contain("signal process started", output="stderr")
-    expect("curl localhost:8080 -H 'Host: hello-world.ilijaz.example'", container=None).to_return("Hello World")
+    expect("curl localhost:8080 -H 'Host: hello-world-nginx.ilijaz.example'", container=None).to_return("Hello World from Nginx")
 
 def test_nginx_installed():
     run("nginx")

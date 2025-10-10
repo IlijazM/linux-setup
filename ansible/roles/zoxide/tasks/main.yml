@@ -1,0 +1,11 @@
+---
+- name: Install zoxide
+  ansible.builtin.apt:
+    name: zoxide
+    state: present
+
+- name: Copy zoxide setup script
+  ansible.builtin.copy:
+    src: 20_setup_zoxide
+    dest: "{{ shell_files_dest }}/20_setup_zoxide"
+    mode: "0755"

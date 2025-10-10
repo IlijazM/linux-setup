@@ -1,0 +1,23 @@
+---
+- name: Ensure required build tools are installed
+  ansible.builtin.apt:
+    name:
+      - build-essential
+      - curl
+      - pkg-config
+      - libssl-dev
+    state: present
+
+- name: Install rustup (non-interactive) if cargo not present
+  ansible.builtin.shell: |
+    set -euo pipefail
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+  args:
+    creates: /root/.cargo/bin/cargo
+
+- name: Ensure /usr/local/bin links to cargo and rust binaries
+  ansible.builtin.file:
+    src: /root/.cargo/bin/cargo
+    dest: /usr/local/bin/cargo
+    state: link
+  when: ansible_facts['os_family'] != 'Windows'

@@ -1,0 +1,31 @@
+- name: Get latest Zellij release info from GitHub API
+  uri:
+    url: https://api.github.com/repos/zellij-org/zellij/releases/latest
+    return_content: yes
+  register: zellij_release
+
+- name: Set Zellij version variable
+  set_fact:
+    zellij_version: "{{ zellij_release.json.tag_name }}"
+
+- name: Download Zellij no-web binary
+  get_url:
+    url: "https://github.com/zellij-org/zellij/releases/download/{{ zellij_version }}/zellij-no-web-x86_64-unknown-linux-musl.tar.gz"
+    dest: "/tmp/zellij-no-web-x86_64-unknown-linux-musl.tar.gz"
+    mode: "0644"
+
+- name: Extract Zellij binary
+  unarchive:
+    src: "/tmp/zellij-no-web-x86_64-unknown-linux-musl.tar.gz"
+    dest: "/tmp/"
+    remote_src: yes
+
+- name: Move Zellij binary to /usr/local/bin
+  become: yes
+  copy:
+    src: "/tmp/zellij"
+    dest: "{{ bin_files_dest }}/zellij"
+    mode: "0755"
+    owner: root
+    group: root
+    remote_src: yes
