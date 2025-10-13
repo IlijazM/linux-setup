@@ -1,3 +1,9 @@
 - name: Install docker
   ansible.builtin.include_role:
     name: geerlingguy.docker
+
+- name: Copy docker aliases script
+  ansible.builtin.copy:
+    src: 80_aliases_docker
+    dest: "{{ shell_files_dest }}/80_aliases_docker"
+    mode: "0755"

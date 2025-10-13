@@ -1,0 +1,9 @@
+#!/bin/bash
+
+alias d="sudo docker"
+alias c="d compose"
+alias cr="c down && c up -d --build"
+alias cl="c logs -f"
+alias crl="cr && cl"
+alias ce="c exec"
+alias cei="ce -it"

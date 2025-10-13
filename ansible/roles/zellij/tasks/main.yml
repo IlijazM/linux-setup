@@ -29,3 +29,9 @@
     owner: root
     group: root
     remote_src: yes
+
+- name: Copy zellij aliases script
+  ansible.builtin.copy:
+    src: 80_aliases_zellij
+    dest: "{{ shell_files_dest }}/80_aliases_zellij"
+    mode: "0755"
