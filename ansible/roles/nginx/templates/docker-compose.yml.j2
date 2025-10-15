@@ -1,0 +1,21 @@
+services:
+  nginx:
+    image: jonasal/nginx-certbot:latest
+    container_name: {{ container_name }}
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+#      STAGING: 1
+#      DEBUG: 1
+      CERTBOT_EMAIL: {{ email }}
+    networks:
+      - nginx
+    volumes:
+      - ./data/nginx-certbot/nginx_secrets:/etc/letsencrypt
+      - ./data/nginx-certbot/user_conf.d:/etc/nginx/user_conf.d:ro
+    restart: unless-stopped
+
+networks:
+  nginx:
+    external: true

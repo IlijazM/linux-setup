@@ -8,17 +8,19 @@
     shell_files_dest: /usr/local/etc/sh
     bin_files_dest: /usr/local/bin
     srv_root: /srv
+    services_root: /opt
+    email: mehmedovic.ilijaz@gmail.com
 
   roles:
     - setup
     - zsh
     - rust
-    - nginx
     - node
+    - docker
+    - nginx
     - eza
     - zoxide
     - fzf
     - zellij
     - nvchad
-    - docker
     - fastfetch

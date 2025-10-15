@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Delegate all commands to the certbot docker container
+# Starts the container if it's not running
+
+# If nginx container is not running, start it
+if [ "$(sudo docker ps -q -f name={{ container_name }})" == "" ]; then
+  if [ "$(sudo docker ps -aq -f status=exited -f name={{ container_name }})" != "" ]; then
+    # cleanup
+    echo "Removing exited nginx container..."
+    sudo docker rm {{ container_name }}
+  fi
+  # run nginx container
+  echo "Starting nginx container..."
+  sudo docker compose -f {{ services_root }}/nginx-certbot/docker-compose.yml up -d
+fi
+
+sudo docker exec -it {{ container_name }} certbot "$@"

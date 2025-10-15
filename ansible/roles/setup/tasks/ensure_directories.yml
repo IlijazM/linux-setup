@@ -22,3 +22,11 @@
     owner: root
     group: sysconf
     mode: "774"
+
+- name: Ensure /srv directory exists with correct permissions
+  ansible.builtin.file:
+    path: "{{ srv_root }}"
+    state: directory
+    owner: root
+    group: sysconf
+    mode: "777"

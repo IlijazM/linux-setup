@@ -1,43 +1,29 @@
 ---
-- name: Install nginx
-  ansible.builtin.apt:
-    name:
-      - nginx
-      - certbot
-      - python3-certbot-nginx
-    state: present
+- name: Create nginx service directory
+  file:
+    path: "{{ services_root }}/nginx"
+    state: directory
 
-- name: Configure nginx
+- name: Create nginx service directory
   template:
-    src: srv-apps.conf.j2
-    dest: /etc/nginx/conf.d/srv-apps.conf
+    src: docker-compose.yml.j2
+    dest: "{{ services_root }}/nginx/docker-compose.yml"
     owner: root
     group: root
     mode: "0644"
 
-- name: Remove default site
-  ansible.builtin.file:
-    path: /etc/nginx/sites-enabled/default
-    state: absent
-
-- name: Ensure default cert directory exists
-  file:
-    path: /etc/letsencrypt/live/default
-    state: directory
+- name: Create nginx exec script
+  template:
+    src: nginx.j2
+    dest: "{{ bin_files_dest }}/nginx"
+    owner: root
+    group: root
     mode: "0755"
 
-- name: Generate dummy default self-signed certificate
-  command: >
-    openssl req -x509 -nodes -newkey rsa:2048
-    -days 1
-    -keyout /etc/letsencrypt/live/default/privkey.pem
-    -out /etc/letsencrypt/live/default/fullchain.pem
-    -subj "/CN=dummy"
-  args:
-    creates: /etc/letsencrypt/live/default/fullchain.pem
-
-- name: Enable nginx on boot
-  service:
-    name: nginx
-    state: started
-    enabled: true
+- name: Create certbot exec script
+  template:
+    src: certbot.j2
+    dest: "{{ bin_files_dest }}/certbot"
+    owner: root
+    group: root
+    mode: "0755"
