@@ -6,9 +6,6 @@ def test_ssh_port():
 def test_permit_root_login_disabled():
     expect("grep ^PermitRootLogin /etc/ssh/sshd_config").to_contain("PermitRootLogin no")
 
-def test_authorized_keys_exists_for_root():
-    expect(r"stat -c '%U %G %a' /root/.ssh/authorized_keys").to_contain("root")
-
 def test_authorized_keys_exists_for_ich():
     expect(r"stat -c '%U %G %a' /home/ich/.ssh/authorized_keys").to_contain("ich")
 

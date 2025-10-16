@@ -1,12 +1,11 @@
 ---
-- name: Copy authorized_keys from root to ich
+- name: Copy authorized_keys
   ansible.builtin.copy:
-    src: /root/.ssh/authorized_keys
+    src: authorized_keys
     dest: /home/ich/.ssh/authorized_keys
     owner: ich
     group: ich
     mode: "0600"
-    remote_src: yes
 
 - name: Disable root SSH login
   ansible.builtin.lineinfile:
