@@ -18,14 +18,14 @@
   roles:
     - setup
     - zsh
-    # - rust
-    # - node
+    - rust
+    - node
     - docker
     - nginx
-    # - eza
-    # - zoxide
-    # - fzf
-    # - zellij
-    # - nvchad
-    # - fastfetch
+    - eza
+    - zoxide
+    - fzf
+    - zellij
+    - nvchad
+    - fastfetch
     - croc

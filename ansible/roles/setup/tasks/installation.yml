@@ -10,6 +10,7 @@
       - apt-transport-https
       - ca-certificates
       - curl
+      - zip
       - git
       - nano
       - net-tools

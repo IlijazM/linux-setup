@@ -12,7 +12,7 @@ if [ "$(sudo docker ps -q -f name={{ container_name }})" == "" ]; then
   fi
   # run nginx container
   echo "Starting nginx container..."
-  sudo docker compose -f {{ services_root }}/nginx-certbot/docker-compose.yml up -d
+  sudo docker compose -f {{ services_root }}/nginx/docker-compose.yml up -d
 fi
 
 sudo docker exec -it {{ container_name }} nginx "$@"
