@@ -1,0 +1,7 @@
+---
+- name: Install croc via upstream installer
+  ansible.builtin.shell: |
+    curl -sSf https://getcroc.schollz.com | bash
+  args:
+    creates: /usr/local/bin/croc
+  tags: croc
