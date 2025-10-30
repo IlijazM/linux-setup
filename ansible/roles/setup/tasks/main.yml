@@ -1,9 +1,6 @@
 - name: Installation
   include_tasks: installation.yml
 
-- name: Configure UFW firewall
-  include_tasks: configure_ufw.yml
-
 - name: Create user 'root'
   include_tasks: user_root.yml
 
@@ -12,6 +9,12 @@
 
 - name: Configure group 'sysconf'
   include_tasks: group_sysconf.yml
+
+- name: Configure UFW firewall
+  include_tasks: configure_ufw.yml
+
+- name: Generate SSH keys
+  include_tasks: generate_ssh_key.yml
 
 - name: Configure ssh
   include_tasks: configure_ssh.yml

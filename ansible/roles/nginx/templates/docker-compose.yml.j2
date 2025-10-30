@@ -14,6 +14,7 @@ services:
     volumes:
       - {{ letsencrypt_dir }}:/etc/letsencrypt
       - {{ nginx_dir }}:/etc/nginx/user_conf.d:ro
+      - {{ srv_root }}:{{ srv_root }}:ro
     restart: unless-stopped
 
 networks:

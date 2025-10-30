@@ -1,0 +1,20 @@
+---
+- name: Generate ECDSA SSH key for root
+  community.crypto.openssh_keypair:
+    path: /root/.ssh/id_ecdsa
+    type: ecdsa
+    size: 521
+    owner: root
+    group: root
+    mode: "0600"
+    force: false
+
+- name: Generate ECDSA SSH key for ich
+  community.crypto.openssh_keypair:
+    path: /home/ich/.ssh/id_ecdsa
+    type: ecdsa
+    size: 521
+    owner: ich
+    group: ich
+    mode: "0600"
+    force: false
