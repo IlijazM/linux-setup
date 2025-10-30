@@ -1,0 +1,43 @@
+---
+- name: Install UFW
+  ansible.builtin.apt:
+    name: ufw
+    state: present
+    update_cache: yes
+
+# The following configuration steps should be skipped when running inside
+# a container/docker-mode. The installation of the package is safe to run
+# in a container, but enabling and manipulating iptables rules is not.
+- block:
+    - name: Set UFW default policy to deny incoming
+      community.general.ufw:
+        direction: incoming
+        policy: deny
+
+    - name: Set UFW default policy to allow outgoing
+      community.general.ufw:
+        direction: outgoing
+        policy: allow
+
+    - name: Allow port 80 (HTTP)
+      community.general.ufw:
+        rule: allow
+        port: "80"
+        proto: tcp
+
+    - name: Allow port 443 (HTTPS)
+      community.general.ufw:
+        rule: allow
+        port: "443"
+        proto: tcp
+
+    - name: Allow port 4242 (SSH)
+      community.general.ufw:
+        rule: allow
+        port: "4242"
+        proto: tcp
+
+    - name: Enable UFW
+      community.general.ufw:
+        state: enabled
+  when: not docker_mode

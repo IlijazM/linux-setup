@@ -12,8 +12,8 @@ services:
     networks:
       - nginx
     volumes:
-      - ./data/nginx-certbot/nginx_secrets:/etc/letsencrypt
-      - ./data/nginx-certbot/user_conf.d:/etc/nginx/user_conf.d:ro
+      - {{ letsencrypt_dir }}:/etc/letsencrypt
+      - {{ nginx_dir }}:/etc/nginx/user_conf.d:ro
     restart: unless-stopped
 
 networks:

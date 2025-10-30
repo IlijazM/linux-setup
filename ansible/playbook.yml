@@ -10,17 +10,21 @@
     srv_root: /srv
     services_root: /opt
     email: mehmedovic.ilijaz@gmail.com
+    # When running against the implicit localhost inventory (e.g. -i "localhost,")
+    # enable docker_mode so tasks that should be skipped in container mode are
+    # not executed. This evaluates to true when inventory_hostname == 'localhost'.
+    docker_mode: "{{ inventory_hostname == 'localhost' }}"
 
   roles:
     - setup
     - zsh
-    - rust
-    - node
+    # - rust
+    # - node
     - docker
     - nginx
-    - eza
-    - zoxide
-    - fzf
-    - zellij
-    - nvchad
-    - fastfetch
+    # - eza
+    # - zoxide
+    # - fzf
+    # - zellij
+    # - nvchad
+    # - fastfetch

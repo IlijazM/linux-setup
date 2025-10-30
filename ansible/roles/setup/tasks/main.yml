@@ -1,6 +1,9 @@
 - name: Installation
   include_tasks: installation.yml
 
+- name: Configure UFW firewall
+  include_tasks: configure_ufw.yml
+
 - name: Create user 'root'
   include_tasks: user_root.yml
 

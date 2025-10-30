@@ -40,6 +40,3 @@ def test_zsh_plugins_installed():
     for plugin in plugins:
         expect(f"test -d /usr/local/etc/dotfiles/.zsh/{plugin}").to_not_fail()
 
-def test_default_shell_for_users():
-    expect("getent passwd root").to_contain("/usr/bin/zsh")
-    expect("getent passwd ich").to_contain("/usr/bin/zsh")

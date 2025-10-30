@@ -1,0 +1,3 @@
+container_name: nginx
+letsencrypt_dir: /etc/letsencrypt
+nginx_dir: /etc/nginx/user_conf.d
